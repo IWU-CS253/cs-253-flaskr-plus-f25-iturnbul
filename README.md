@@ -1,7 +1,6 @@
-# Flask Example
+B# Flask Example
 
-An example Flask application (adapted from the [Flask 0.12 tutorial](https://www.iwu.edu/~mliffito/flask_tutorial/))
+An example Flask application allowing the user to interact with the database and create and delete posts.
 
 ## License
-
-The code from the tutorial is licensed as stated in the LICENSE file.
+Author: Ian Turnbull.
