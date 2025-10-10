@@ -31,7 +31,12 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Database Script.schema.sql">
+    <configuration name="schema.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
+      <script-file value="$PROJECT_DIR$/schema.sql" />
+      <script-mode>FILE</script-mode>
+      <method v="2" />
+    </configuration>
     <configuration name="cs-253-flaskr-plus-f25-iturnbul" type="PythonConfigurationType" factoryName="Python">
       <module name="cs-253-flaskr-plus-f25-iturnbul" />
       <option name="ENV_FILES" value="" />
@@ -55,6 +60,11 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Database Script.schema.sql" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -71,7 +81,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1760117663809</updated>
-      <workItem from="1760117665238" duration="2100000" />
+      <workItem from="1760117665238" duration="4547000" />
     </task>
     <servers />
   </component>
