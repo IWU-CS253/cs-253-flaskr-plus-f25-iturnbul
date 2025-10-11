@@ -23,7 +23,15 @@
     </form>
   <ul class="entries">
   {% for entry in entries %}
-    <li><h2>{{ entry.title }}</h2><h3>{{ entry.categories }}</h3>{{ entry.text|safe }}</li>
+    <li>
+        <h2>{{ entry.title }}</h2>
+        <h3>{{ entry.categories }}</h3>
+        <p>{{ entry.text|safe }}</p>
+    <form action = "{{ url_for('delete_entry',entry_id=entry.id) }}" method="post">
+        <input type="submit" value="delete">
+    </form>
+
+    </li>
   {% else %}
     <li><em>Unbelievable.  No entries here so far</em></li>
   {% endfor %}
