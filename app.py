@@ -67,9 +67,16 @@ def close_db(error):
 @app.route('/')
 def show_entries():
     db = get_db()
-    cur = db.execute('select title, text, categories from entries order by id desc')
+    category = request.args.get('category')
+    if category:
+        cur = db.execute('select title, text, categories from entries where categories = ?',(category,))
+    else:
+        cur = db.execute('select title, text, categories from entries order by id desc')
     entries = cur.fetchall()
-    return render_template('show_entries.html', entries=entries)
+
+    curr = db.execute('select Distinct categories from entries')
+    categories = [row["categories"] for row in curr.fetchall()]
+    return render_template('show_entries.html', entries=entries, categories=categories,selected=category)
 
 
 @app.route('/add', methods=['POST'])

@@ -11,6 +11,16 @@
       <dd><input type="submit" value="Share">
     </dl>
   </form>
+    <form action="{{ url_for('show_entries') }}" method="get">
+        <label>Filter</label>
+            <select name="category" id="category">
+                <option value="">Show All</option>
+                {% for cat in categories %}
+                <option value="{{ cat }}" {% if cat == selected %}selected{% endif %}>{{ cat }}</option>
+                {% endfor %}
+            </select>
+        <input type="submit" value="Filter">
+    </form>
   <ul class="entries">
   {% for entry in entries %}
     <li><h2>{{ entry.title }}</h2><h3>{{ entry.categories }}</h3>{{ entry.text|safe }}</li>
