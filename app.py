@@ -88,10 +88,22 @@ def add_entry():
     flash('New entry was successfully posted')
     return redirect(url_for('show_entries'))
 
-@app.route("/delete/<int:entry_id>", methods=["POST"])
+@app.route("/delete/<int:entry_id>", methods=["POST","GET"])
 def delete_entry(entry_id):
     db = get_db()
     db.execute('delete from entries where id = ?', (entry_id,))
     db.commit()
     flash('Entry deleted successfully.')
     return redirect(url_for('show_entries'))
+
+@app.route("/edit/<int:entry_id>", methods=["POST","GET"])
+def edit_entry(entry_id):
+    db = get_db()
+    title = request.form["title"]
+    text = request.form["text"]
+    categories = request.form["category"]
+    db.execute('UPDATE entries Set title = ?, text = ?, categories = ?'
+               ' where id = ?', (title, text, categories,entry_id))
+    db.commit()
+    flash("Entry edited succesfully")
+    return redirect(url_for("show_entries"))
