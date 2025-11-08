@@ -1,53 +1,49 @@
 {% extends "layout.html" %}
 {% block body %}
-  <form action="{{ url_for('add_entry') }}" method="post" class="add-entry">
-    <dl>
-      <dt>Title:
-      <dd><input type="text" size="30" name="title">
-        <dt>Category:
-        <dd><input type="text" name="categories">
-      <dt>Text:
-      <dd><textarea name="text" rows="5" cols="40"></textarea>
-      <dd><input type="submit" value="Share">
-    </dl>
-  </form>
-    <form action="{{ url_for('show_entries') }}" method="get">
-        <label>Filter</label>
-            <select name="category" id="category">
+
+<div class="container mt-4">
+    <form action="{{ url_for('add_entry') }}" method="post" class="mb-4">
+        <input type="text" class="form-control mb-2" name="title" placeholder="Title" required>
+        <input type="text" class="form-control mb-2" name="categories" placeholder="Category">
+        <textarea class="form-control mb-2" name="text" rows="3" placeholder="Text" required></textarea>
+        <button type="submit" class="btn btn-success">Share</button>
+    </form>
+
+
+    <form action="{{ url_for('show_entries') }}" method="get" class="mb-4 d-flex">
+            <select name="category" id="category" class="form-select">
                 <option value="">Show All</option>
                 {% for cat in categories %}
                 <option value="{{ cat }}" {% if cat == selected %}selected{% endif %}>{{ cat }}</option>
                 {% endfor %}
             </select>
-        <input type="submit" value="Filter">
+        <button type="submit" class = "btn btn-primary">Filter</button>
     </form>
-  <ul class="entries">
+
+
   {% for entry in entries %}
-    <li>
-        <h2>{{ entry.title }}</h2>
-        <h3>{{ entry.categories }}</h3>
-        <p>{{ entry.text|safe }}</p>
-    <form action = '{{ url_for('delete_entry',entry_id=entry.id) }}' method='post'>
-        <input type="submit" value="delete">
-    </form>
+  <div class="card mb-3 p-3">
+    <strong>{{ entry.title }}</strong> <span>{{ entry.categories }}</span>
+    <p>{{ entry.text }}</p>
 
-    <button onclick = "toggleForm('edit-{{ entry.id }}')">Edit</button>
-    <form id = 'edit-{{ entry.id }}' action = "{{ url_for('edit_entry', entry_id=entry.id) }}" method="post" style = "display:none;">
-        <ul>
-            <li><label>Title</label>
-            <input type="text" name="title" value = "{{ entry.title }}">
-            </li>
-            <li><label>Text</label>
-            <textarea name = "text">{{ entry.text }}</textarea>
-            </li>
-            <li><label>Category</label>
-            <input type="text" name="category" value = "{{ entry.category }}">
-            </li>
-            <li><button type = "submit">Save Changes</button></li>
-        </ul>
-    </form>
+    <div class="d-flex">
+      <form action="{{ url_for('delete_entry', entry_id=entry.id) }}" method="post">
+        <button type="submit" class="btn btn-sm">Delete</button>
+      </form>
 
-    </li>
+      <button class="btn btn-sm " type="button" onclick="toggleForm('edit-{{ entry.id }}')" >Edit</button>
+    </div>
+
+    <div class="collapse mt-2" id="edit-{{ entry.id }}">
+        <form action="{{ url_for('edit_entry', entry_id=entry.id) }}" method="post">
+            <input type="text" class="form-control mb-2" name="title" value="{{ entry.title }}" placeholder="Title">
+            <textarea class="form-control mb-2" name="text" placeholder="Text">{{ entry.text }}</textarea>
+            <input type="text" class="form-control mb-2" name="category" value="{{ entry.category }}" placeholder="Category">
+            <button type="submit" class="btn btn-success btn-sm">Save</button>
+        </form>
+    </div>
+
+
     <script>
     function toggleForm(formId){
         const form = document.getElementById(formId)
@@ -58,8 +54,10 @@
 
     }
     </script>
+
   {% else %}
-    <li><em>Unbelievable.  No entries here so far</em></li>
+    <li><em>No entries here yet</em></li>
   {% endfor %}
-  </ul>
+
+</div>
 {% endblock %}
