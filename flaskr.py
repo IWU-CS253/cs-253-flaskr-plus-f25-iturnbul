@@ -22,7 +22,7 @@ class FlaskrTestCase(unittest.TestCase):
 
     def test_add_entry(self):
         self.app.post('/add', data=dict(
-            title='Test Post',
+            title='Test Add',
             text='Hello world',
             categories='General'
         ), follow_redirects=True)
